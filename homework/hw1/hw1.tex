@@ -62,6 +62,7 @@ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
 \usepackage{float}
 \usepackage{bm}
 \usepackage{tikz}
+\usetikzlibrary{automata,arrows}
  %changes default sectioning commands -> 1,a, etc.
 %\usepackage{breakurl}
 \renewcommand{\thesubsection}{(\alph{subsection})}
@@ -75,7 +76,7 @@ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
 \chead{\leftmark}
 \rhead{}
 \lfoot{Aaron Gonzales; Theory of Computation}
-\cfoot{Homework X}
+\cfoot{Homework 1}
 \rfoot{Page \thepage\ of \pageref{LastPage}}
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 
@@ -87,36 +88,15 @@ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
 
 
 %%%% useful align for this
-\section{Template math}
-\begin{align*}
-	Total Matches &={n \choose 3} * \frac{1}{25} \\
-					&= {27 \choose 3}   * \frac{1}{25} \\
-					&=   \frac{27!}{3!(27-3)!} * \frac{1}{25} \\
-					&= \frac{27 * 26 * 25}{6} * \frac{1}{25}  \\
-					&= 117
-\end{align*}
-
-
-We have $n$ debutants and $n$ porsches. 
-$\frac{1}{n}$ is our probability of a debutant getting into her own porche.
-Let $X_i$ be an indicator variable saying 
-
-\[
-	X_i = I[X]
-	\begin{cases}
-		1 & \text{if debutante gets in her own car} \\
-		0 & \text{if not} 
-	\end{cases}
-\]
-
-
-
 \section{Exercise 1}
 \begin{quote}
   \textbf{Show that the set of all langauges is uncountably infinite, while the
    set of DFAs is only countably infinite}
 \end{quote}
 \subsubsection{Answer:}
+If we have an alphabet $\Sigma$ that is finite and non-empty, then $\Sigma^*$
+is countably infinite as there is a bijection from $\Sigma^* \to \mathbb{N}$.
+Cantor's theorem shows us that $\mathbb{N}$ has uncountably infinite subsets.
 
 \section{Exercise 2}
 \begin{quote}
@@ -132,45 +112,118 @@ Let $X_i$ be an indicator variable saying
   number of states, such that $L = L(M)$.
   Offer some intuition about why you believe your DFA is minimal.}
 \end{quote}
-\subsubsection{Answer:}
+\subsubsection{Answer, 2.1}
 
-\section{}
+  %%%%%% 2.2 answer %%%%%%%%%%%%
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+                    semithick]
+  \tikzstyle{every state}=[fill=red,draw=none,text=white]
+
+  \node[initial,state] (A)                    {$1$};
+  \node[state]         (B) [above right of=A] {$2$};
+  \node[state]         (C) [below right of=B] {$3$};
+
+  \path (A) edge              node {c} (B)
+            edge [loop above] node {b} (A)
+            edge [loop below] node {a} (A)
+        (B) edge [loop above] node {c} (B)
+        (B) edge [loop below] node {b} (B)
+            edge              node {a} (C)
+        (C) edge [loop above] node {c} (C)
+            edge [loop below] node {b} (C);
+\end{tikzpicture}
+
+\subsubsection{Answer, 2.2}
+
+  %%%%%% 2.2 answer %%%%%%%%%%%%
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+                    semithick]
+  \tikzstyle{every state}=[fill=red,draw=none,text=white]
+
+  \node[initial,state] (A)                    {$1$; $S^{yes}$};
+  \node[state]         (B) [above right of=A] {$2$; $S^{yes}$};
+  \node[state]         (C) [below right of=B] {$3$};
+
+  \path (A) edge              node {c} (B)
+            edge [loop above] node {b} (A)
+            edge [loop below] node {a} (A)
+        (B) edge [loop above] node {c} (B)
+        (B) edge [loop below] node {b} (B)
+            edge              node {a} (C)
+        (C) edge [loop above] node {c} (C)
+            edge [loop below] node {b} (C);
+\end{tikzpicture}
+
+
+\subsubsection{Answer, 2.3}
+  %%%%%% 2.3 answer %%%%%%%%%%%%
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+                    semithick]
+  \tikzstyle{every state}=[fill=red,draw=none,text=white]
+
+  \node[initial,state] (A)                    {$1; S^{Yes}$};
+  \node[state]         (B) [right of=A] {$2$};
+  \node[state]         (C) [right of=B] {$3$};
+
+  \path (A) edge [bend right] node {1} (B)
+            edge [loop above] node {0} (A)
+        (B) edge [bend right] node {1} (A)
+            edge [bend right] node {0} (C)
+        (C) edge [bend right] node {0} (B)
+            edge [loop above] node {1} (C);
+\end{tikzpicture}
+
+
+
+
+\section{Show that any finite language is DFA Regular}
 \begin{quote}
   \textbf{ }
 \end{quote}
 \subsubsection{Answer:}
+We can show this via induction over the number of strings in the language.
 
-\section{}
+Base case: $\epsilon$ is the empty string
+Inductive Hypothesis: A finite language $L$ is comprised of finite strings
+
+We know that if the string ${a}$ is regular then the string $L \cup {a}$ is
+also regular and finite, by the IH. 
+
+\section{Closure under complement}
 \begin{quote}
-  \textbf{ }
+  \textbf{Prove that if $L$ is DFA-regular, then $\bar{L}$ is DFA-regular.}
 \end{quote}
 \subsubsection{Answer:}
 
+A DFA will make exactly one type of transition given input from a specific
+state. Given DFA $M$ and language $L$, $w_1 \in L$, swapping accept and start
+states of $M$, $L$ is not guarenteed to be recognized by $M$ any longer, though
+as a DFA, $\bar{M}$ still can accept a regular language. Hence, regular
+languages are closed (produce another set of the same set) under complement. 
 
 
-
-\section{}
+\section{Closure under Union without DeMorgan}
 \begin{quote}
-  \textbf{ }
+  \textbf{If $L_1$ and $L_2$ are DFA regular, then $L_1 \cap L_2$ is DFA
+  regular}
 \end{quote}
 \subsubsection{Answer:}
+If we define a product automata $P$ of two automata $S,T$ with states $s_1,
+s_2, \dots s_n$ and $t_1, t_2, \dots t_m$  as a resultant $P = ST$
+to be the automata produced by the product of their individual states, such
+that $P$ has state pairs $(s, t) $ with $ s \in S \text{and } t \in T$. A
+product automata can be visualized as a matrix with row $S$ and column $T$.
+This $P$ now recognizes the new language created by $S \cap T$. 
 
-\section{}
+\section{Exercise 6}
 \begin{quote}
-  \textbf{ }
+  \textbf{Consider two DFAs, $M_1$ and $M_2$ with $n_1$ and $n_2$ states
+  respectively. Show that if $L(M_1) \neq L(M_2)$ there is at least one word of
+length less than $n_1n_2$ that $M_1$ accepts and $M_2$ rejects or vice versa.
+Contrapositively, if all words of length less than $n_1n_2$ are given the same
+response by both DFAs, they recognize the same language.}
 \end{quote}
 \subsubsection{Answer:}
+  By making a product of $M_1$ and $M_2$\dots
 
-\section{}
-\begin{quote}
-  \textbf{ }
-\end{quote}
-\subsubsection{Answer:}
-
-\section{}
-\begin{quote}
-  \textbf{ }
-\end{quote}
-\subsubsection{Answer:}
-
-  \end{document}
+\end{document}
