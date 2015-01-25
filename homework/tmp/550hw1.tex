@@ -1,0 +1,275 @@
+%%%%%latex preamble%%%%%
+\documentclass[titlepage]{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+  \linewidth
+  \else
+  \Gin@nat@width
+  \fi
+}
+\makeatother
+
+
+\usepackage{listings}
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,                    % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=Python,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=2,                       % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+\usepackage{alltt}
+\usepackage[sc]{mathpazo}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=2.5cm,bmargin=2.5cm,lmargin=1.5cm,rmargin=1.5cm}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+\usepackage{url}
+\usepackage[unicode=true,pdfusetitle,
+  bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=2,
+breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
+{hyperref}
+\hypersetup{pdfstartview={XYZ null null 1}}
+\usepackage{float}
+\usepackage{bm}
+\usepackage{tikz}
+ %changes default sectioning commands -> 1,a, etc.
+%\usepackage{breakurl}
+\renewcommand{\thesubsection}{(\alph{subsection})}
+\renewcommand{\thesubsubsection}{\roman{subsection}.}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+%%% Header and Footer %%% 
+\lhead{}
+\chead{\leftmark}
+\rhead{}
+\lfoot{Aaron Gonzales; Programming Languages}
+\cfoot{Homework 1}
+\rfoot{Page \thepage\ of \pageref{LastPage}}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+
+\begin{document}
+
+\title{Homework 1, CS550, Spring 2015}
+\author{Aaron Gonzales}
+\maketitle
+
+
+\section{}
+\begin{quote}
+  \textbf{Let p,q,r be proposistions:}
+\end{quote}
+
+\begin{itemize}
+  \item \textbf{p: You have the flu}
+  \item \textbf{q: You miss the final exam}
+  \item \textbf{r: You pass the course}
+\end{itemize}
+
+\subsection{ $(p \implies q)$ }
+\subsubsection{Answer:}
+``I have the flu and as such, I missed the final''.
+
+\subsection{ $(q \implies \lnot q)$ }
+\subsubsection{Answer:}
+``I missed the final and as such, did not pass the course.''
+
+\subsection{ $[(p \implies \lnot r) \lor (q \implies \lnot r)]$ }
+\subsubsection{Answer:}
+``I had the flu and as such I did not pass the course or I missed the final exam
+and did not pass the course.''
+
+\subsection{ $[(p \land q) \lor ( \lnot q \land r)]$ }
+\subsubsection{Answer:}
+``I missed the final and had flu or I didn't miss the final and i passed the
+course.''
+
+
+\section{ }
+\begin{quote}
+  \textbf{Let p,q,r be proposistions:}
+\end{quote}
+
+\begin{itemize}
+  \item \textbf{p: you get an A on the final exam}
+  \item \textbf{q: You do every exercise in the book}
+  \item \textbf{r: You get an A in this class}
+\end{itemize}
+\subsection{You get an A on the final but you do not do every exercise in the
+book; nevertheless, you get an aA in this class}
+\subsubsection{Answer:}
+\( (p \land \lnot q) \implies r \)
+
+\subsection{Getting an A on the final and doing every exercise in teh book is
+sufficient for getting an A in the class}
+\subsubsection{Answer:}
+\( ( p \land q) \implies r \)
+
+\subsection{You will get an A in the class if and only if you either do every
+exercise in the book or you get an A on the final}
+\subsubsection{Answer:}
+$ ( p \lor q) \implies r $
+
+
+\section{ }
+\begin{quote}
+  \textbf{Determine whether the argument is correct or incorrect and explain
+  why}
+\end{quote}
+\subsection{Everyone enrolled in the university has lived in a dormitory. Mia
+has never lived in a dormitory. Therefore, Mia is not enrolled in the
+university.}
+\subsubsection{Answer:}
+True. All students in the university have lived in dormitories and Mia has not.
+If she was enrolled in the university, she would live or have lived in a dorm.  
+
+\subsection{A convertible car is fun to drive. Isaac's car is not convertible.
+Therefore, Issac's car is not fun to drive.}
+\subsubsection{Answer:}
+False. The predicate makes no mention about all cars level of fun to drive,
+only convertible cars. Other cars may be fun to drive as well.
+
+\subsection{Quincy likes all action movies. Quincy likes the movie
+  \textit{Eight Men Out.} Therefore, \textit{Eight Men Out} is an action
+movie.}
+\subsubsection{Answer:}
+False. The predicate makes no mention if Quincy likes other types of movies and
+only establishes something for his love of action movies. \textit{Eight Men
+Out} may be another type of movie that he likes.
+
+\subsection{All lobstermen set at least a dozen traps. Hamilton is a
+lobsterman. Therefore, Hamilton sets at least a dozen traps.}
+\subsubsection{Answer:}
+True. A basic fact of being a lobsterman is setting a dozen traps. If Hamilton
+violates this, he is not a lobsterman. 
+
+
+
+%%%%%%%%%%%%%%%%
+\section{}
+\begin{quote}
+  \textbf{Express each of these sytem specifications using predicates,
+  quantifies, and logical connectives:}
+\end{quote}
+  \subsection{ Every user has access to an electronic mailbox }
+  \subsubsection{Answer:}
+  Let a user be denoted by $x$ and access to an electronic mailbox be $P(x)$.
+  \[ \forall x P(x) \]
+
+
+  \subsection{ The system mailbox can be accessed by everyone in the group if
+  the file system is locked. }
+  \subsubsection{Answer:}
+  Let $x$ be a user \textit{in the group} and $P(x)$ denote access to the system.
+  \[ \forall x P(x) \]
+
+  \subsection{ The firewall is in a diagnostic state only if the proxy server
+  is in  a diagnostic state. }
+  \subsubsection{Answer:}
+  let $D(x)$ be the proxy server's diagnostic state and $F(x)$ be the
+  firewall's diagnostic state.
+  \[ D(x) \implies F(x) \]
+
+  \subsection{ At least one router is functioning normally if the throughput is
+  between 100kpbs and 500 kbps and the proxy server is not in diagnostic
+  mode.}
+  \subsubsection{Answer:}
+  let $R(r)$ be true if a router is functioning normally and $T(x)$ be throughput of 100 to 500 kbps. 
+  \[ (T(x) \land \lnot D(x)) \implies R(r) \]
+
+
+\section{ }
+  \subsection{Which of these compound propositions are satisfiable, falsifiable,
+  both satisfiable and falsifiable?}
+    \begin{itemize}
+      \item \( ( p \lor q \lor \lnot r) \land ( p \lor \lnot q \lor \lnot s) \)
+    \end{itemize}
+
+
+  \subsection{ Prove that $ p \implies [q \implies (p \land q)] $ and $ (p
+      \land q) \implies q \implies (p \lor r) $ are tautologies or not. Is $( p
+      \lor q) \implies [q \implies q] $ a tautology? } 
+  \subsubsection{Answer}
+
+  \subsection{ }
+  \begin{itemize}
+      \item Show that $\lnot p \implies (q \implies r) $ and 
+        $ q \implies (p \lor r)$ are logically equivalent.
+      \item Show that $( p \land q) \implies r$ and $(p \implies r) \land (q
+        \implies r)$ are not equivalent.
+    \end{itemize}
+
+
+  \subsubsection{Answer}
+
+  \subsection{ Show that $ ( p \implies q ) \land ( p \implies r ) $ and 
+  $ p \implies (p \land r))$ are logically equivalent.}
+  \subsubsection{Answer}
+
+
+
+
+  \section{}
+  \subsection{What is the distinction between the following two formulas?}
+  \[ \forall x \, \exists y \, P(x,y). \]
+  \[ \exists x \, \forall y \, P(x,y). \]
+  \subsubsection{Answer:}
+
+
+
+  \subsection{Does $(\forall x \, P(x)) \lor (\forall x \, Q(x))$ imply $\forall
+    x (P(x) \lor Q(x))$. What about the other way? if it does not imply, give a
+    coutnerexample illustrating it. If it does imply, how would you convince
+    someone about it?}
+    \subsubsection{Answer:}
+
+\section{ }
+  \begin{quote}
+    {In a logic programming language, define relations (i.e., write programs)
+    to determine if a list:}
+  \end{quote}
+
+  \subsection{is a permutation of another list}
+  \subsubsection{Answer:}
+
+  \subsection{has an even number of elements in it}
+  \subsubsection{Answer:}
+
+  \subsection{is formed by merging two other lists, i.e., successively
+  taking one element at at ime from each list and merging until one of the
+lists becomes empty, in which take the remaining nonempy list.}
+  \subsubsection{Answer:}
+
+
+  \end{document}
