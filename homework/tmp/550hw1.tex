@@ -101,7 +101,7 @@ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
 \subsubsection{Answer:}
 ``I have the flu and as such, I missed the final''.
 
-\subsection{ $(q \implies \lnot q)$ }
+\subsection{ $(q \implies \lnot r)$ }
 \subsubsection{Answer:}
 ``I missed the final and as such, did not pass the course.''
 
@@ -112,7 +112,7 @@ and did not pass the course.''
 
 \subsection{ $[(p \land q) \lor ( \lnot q \land r)]$ }
 \subsubsection{Answer:}
-``I missed the final and had flu or I didn't miss the final and i passed the
+``I missed the final and had flu or I didn't miss the final, passed the
 course.''
 
 
@@ -213,7 +213,8 @@ violates this, he is not a lobsterman.
   \subsection{Which of these compound propositions are satisfiable, falsifiable,
   both satisfiable and falsifiable?}
     \begin{itemize}
-      \item \( ( p \lor q \lor \lnot r) \land ( p \lor \lnot q \lor \lnot s) \)
+      \item (i) both
+      \item (ii)  both   
     \end{itemize}
 
 
@@ -221,36 +222,61 @@ violates this, he is not a lobsterman.
       \land q) \implies q \implies (p \lor r) $ are tautologies or not. Is $( p
       \lor q) \implies [q \implies q] $ a tautology? } 
   \subsubsection{Answer}
+  Truth tables omitted due to complexity of making tabular environments. 
+  \begin{itemize}
+      \item $ p \implies [q \implies (p \land q)] $ : Yes
+      \item $ (p \land q) \implies q \implies (p \lor r) $: No
+      \item $( p \lor q) \implies [q \implies q] $ : Yes
+  \end{itemize}
 
-  \subsection{ }
+  \subsection{ } %c
   \begin{itemize}
       \item Show that $\lnot p \implies (q \implies r) $ and 
         $ q \implies (p \lor r)$ are logically equivalent.
       \item Show that $( p \land q) \implies r$ and $(p \implies r) \land (q
         \implies r)$ are not equivalent.
     \end{itemize}
-
-
   \subsubsection{Answer}
+  
 
   \subsection{ Show that $ ( p \implies q ) \land ( p \implies r ) $ and 
-  $ p \implies (p \land r))$ are logically equivalent.}
+              $ p \implies (q \land r))$ are logically equivalent.}
   \subsubsection{Answer}
+  q and r must both be true and the order of implication doesn't matter in this
+  case. 
 
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \section{}
   \subsection{Write a formula that expresses that a number $g$ is the GCD of
-  two other numbers $x,y$}
+    two other numbers $x,y$}
+  \subsubsection{Answer:}
+  \[ \forall x, gcd(x, 0, x). \]
+  \[ \forall x, \forall y, \forall g, gcd(x, y, g) ⊂ \lnot zero(v) ∧ gcd(y, mod(x, y), g)  \]
 
-  \subsection{}
+  \subsection{Write a formula that expresses that a number $h$ is the least
+    common multiple of two other numbers $x,y$ (without using the least common
+    multiple operation)}
+  \subsubsection{Answer:}
+  Presuming we can use GCD(x,y,g) from above:
+  \[ LCM(x,1,1) \] 
+  \[ LCM(x,y,h) :- h abs(x*y) / gcd(x,y) \] 
+
+
+  \subsection{Give an array $A$ whose indices are natural numbers, write a
+  formula expressing the array is sorted.}
+  \subsubsection{Answer:}
+  \[ \forall i A_i \leq S(A_i) \]
 
   \section{}
   \subsection{What is the distinction between the following two formulas?}
   \[ \forall x \, \exists y \, P(x,y). \]
   \[ \exists x \, \forall y \, P(x,y). \]
   \subsubsection{Answer:}
-
+  The first example shows $P(x,y)$ is an injective function. The second example
+  shows $P(x,y)$ is a surjection. $\mathbb{R} \to \mathbb{R} : x \to e^x$ is a
+  canonical example of an injective function and $\mathbb{R} \to [-1,1]: x \to
+  sin(x)$ is a surjective function.  
 
 
   \subsection{Does $(\forall x \, P(x)) \lor (\forall x \, Q(x))$ imply $\forall
@@ -258,6 +284,9 @@ violates this, he is not a lobsterman.
     coutnerexample illustrating it. If it does imply, how would you convince
     someone about it?}
     \subsubsection{Answer:}
+    \[ (\forall x \, P(x)) \lor (\forall x \, Q(x)) \implies \forall x (P(x)
+      \lor Q(x)) \] 
+      but not the other way around. 
 
 \section{ }
   \begin{quote}
@@ -267,13 +296,39 @@ violates this, he is not a lobsterman.
 
   \subsection{is a permutation of another list}
   \subsubsection{Answer:}
+  The basic process is to recusively test the list using three functions,
+  Check, Remove, and Perm. Check tests if an item is in a list, remove removes
+  the head of the list, and perm is only true if the the lists are permutations
+  . It will fail if they are not.
+  
+  \begin{lstlisting}[language=Prolog]
+    Check(x,[x|L]).
+    Check(x, [y|l}) :-(Check(x, L)).
+
+    Remove(x, [x|L], L).
+    Remove(x, [y|L], z):- Remove(X,L,z).
+
+    Perm([], []).
+    Perm(L1, L2): - 
+      Check(x, L2),
+      Remove(x, L2, y),
+      Perm(L1,y).
+  \end{lstlisting}
 
   \subsection{has an even number of elements in it}
   \subsubsection{Answer:}
 
+  We see that Even is true if x is an even natural number, built using the
+  successor function.
+  \begin{lstlisting}[language=Prolog]
+    Even(0).
+    Even(S(S(x)):- even(x).
+  \end{lstlisting}
+
+
   \subsection{is formed by merging two other lists, i.e., successively
-  taking one element at at ime from each list and merging until one of the
-lists becomes empty, in which take the remaining nonempy list.}
+  taking one element at at time from each list and merging until one of the
+  lists becomes empty, in which take the remaining nonempy list.}
   \subsubsection{Answer:}
 
 
