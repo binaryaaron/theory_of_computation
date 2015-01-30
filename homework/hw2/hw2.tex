@@ -62,6 +62,7 @@ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
 \usepackage{float}
 \usepackage{bm}
 \usepackage{tikz}
+\usetikzlibrary{arrows,automata}
  %changes default sectioning commands -> 1,a, etc.
 %\usepackage{breakurl}
 \renewcommand{\thesubsection}{(\alph{subsection})}
@@ -104,7 +105,7 @@ be the machine that recognizes $L^*$. To construct $M_{L^*}$, add a new start
 state $S'$ that is also an accepting state to $M_L$. Connect $S'$ to $M_L$ with
 an $\epsilon$ transition and add another $\epsilon$ edge out of $M_L$ such that
 it connects to $S'$. This machine can accept any possible combinatins of valid
-instances of $L$, showing that $L^*$ is indeed regular. 
+instances of $L$ and includes $\epsilon$, showing that $L^*$ is indeed regular. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -158,7 +159,7 @@ exisisting automata.
   \[ L_{1/3} = \{ y | \exists x,z : |x| = |y| = |z|\,  \text{and } x y z \in L \} \]
   
 \end{quote}
-\subsubsection*{Answer:}
+\subsubsection*{Answer A:}
 We know that $|x| = |y|$ and must show that the set of words in $L_{1/2}$ can
 be represented by a DFA to be proved regular. FA's limit us in that we cannot
 go back in time or record with external memory, and we may not know how large a
@@ -174,19 +175,49 @@ of two FAs.
 
 \begin{proof}
 	Let us define two FAs:
+        \footnote{teammates, My notation here may be slightly wonky (the
+          NFA/DFA notation needs cleaning and I will gladly
+        put in a figure to help explain this in better detail regarding the overlap of
+        the boundary states for the words on both parts a and b}
 	\begin{align}
 		M =& \{Q, \Sigma, \delta, S_0, S^{yes}\} \\
 		M^R =& \{ Q^R, \Sigma, \delta^R, S^{yes^R} \} \\
 		Q^R = & Q \cup \{S_{0}^R \}
 	\end{align}
-	$M$ is the DFA which recognizses $L$ and $M^R$ is the DFA that recognizses
+	$M$ is the DFA which recognizes $L$ and $M^R$ is the NFA that recognizes
 	$L^R$. We have seen that the reverse operator is closed under
 	regularity. $Q^R$ is the union of states of $M$ and acepting states of
 	$L^R$.
+        Now introduce $M_{1/2}$, the machine that recognizes $L_{1/2}$, which
+        is the product of $M \times M^R$ and we define all of $M_{1/2}$
+        member's below.
+        
+        \begin{align}
+          M_{1/2} = & M \times M^R \\ = &  \{ Q_{1/2}, \Sigma, \delta_{1/2}, S_{o_{1/2}}, S_{1/2}^{yes}  \} & \\
+          Q_{1/2} = & Q \times Q^R \hfill & \text{States} \\ 
+          \delta_{1/2} = & \{ (q_1, q_2), a\} = \cup_{c \in \Sigma} \{ \delta (q_1, a), \delta^R (q_2, c)\} &\text{ transition function }\\ 
+          S_{0_{1/2}} = & \{ S_0, S_0^R \} & \text{ initial states} \\
+          S^{yes}_{1/2} = & \{ (q1,q) | q \in Q \} & \text{ accepting states}
+	\end{align}
 
+        Our new machine, $M_{1/2}$ will read the string $w \in L$ and only
+        accept it if the strings $x,y$ are equal in length and are a part of
+        this new $L_{1/2}$ language. 
 \end{proof}
 
+\subsection{Answer B}
+Proving this for $L_{1/3}$ would involve repeating the process from above and
+getting a triple product construction for the three FA for which we have
+interest, though the construction of this is laborious. 
+A possible proof by induction for an $L_{1/n}$ for which any word in the
+language can be chopped into $n$ discreet and equal chunks could follow. 
 
+\begin{proof}
+  Via induction over the size of a word 
+  \[ |x_1|, |x_2|, \dots |x_n| | \sum_{i=1}^n |x_i| = w \in L \]
+  , where $L$ is regular and $|w|\%n=0 $ .
+
+\end{proof}
 
 
 
@@ -201,21 +232,43 @@ of two FAs.
 \end{quote}
 
 \subsubsection*{Answer:}
-\vspace{8cm}
+This is similar to converting any NFA to a DFA. 
+let \[ A_n = \{ Q, q_0 \in Q, F \subseteq Q, \delta : Q \times \Sigma \to P(Q) \} \]
+  be the $\forall$ NFA we wish to convert.
+
+Let \[ A_d = \{Q' = \mathcal{P}(Q), \{ q_0 \}, \delta'(S,a) = \cup_{q \in S}
+\delta(q,a), F' = \{ S \subseteq Q : S \cap F \neq \varnothing \} \} \]
+be the DFA to which we are mapping $A_n$.
+
+note that
+\begin{align*}
+  Q' =& \mathcal{P}(Q)& Q' \text{ is power set of } Q \\ 
+  F' =& \{ S \subseteq Q : S \cap F \neq \null \} \} &\text{ DFA accepting states
+  as subsets of Q with all elements accepting } 
+\end{align*}
+So all of the DFA's accepting states are on a computation path and that the
+All-paths NFA recognizes a regular language as we have build its DFA.
+\footnote{teammates, My notation here may be slightly wonky}
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Ex 13}
 \begin{quote}
-  \textbf{Show that if $u ∼_L v$ , then $u a ∼_L v a$ for any $a \in A$.}
+  \textbf{Show that if $u \sim_L v$ , then $u a \sim_L v a$ for any $a \in A$.}
 \end{quote}
+\subsubsection{Answer:}
 
-\subsubsection*{Answer:}
-\vspace{8cm}
+\begin{proof}
+L-equivalence is defined by Definition 3 \footnote{Automata notes} as given some
+language $L \subseteq A^*$, $u,v \in A^*$ are $u \sim_L v$ if $\forall w \in
+A^*\, \, uw \in L \text{ iff } vw \in L$. 
+Since this is a forall notion, we can say that this would include words $w = ax$
+or a word comprised with a prefix a on x. $\forall x, uax \in L \text{ iff } vax \in
+L \implies ua \sim_L va$.
+\end{proof}
 
-blah blah \rotatebox{90}{\textasciitilde} blah blah blah
-\[ W | \star \to \text{\rotatebox{90}{\textasciitilde}} \sum_{i}^x \]
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Ex 14}
 \begin{quote}
@@ -224,16 +277,39 @@ blah blah \rotatebox{90}{\textasciitilde} blah blah blah
   you designed before is minimal.}
 \end{quote}
 \subsubsection{Answer:}
-\vspace{8cm}
+  \begin{figure}[htp]
+    \centering
+    \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2cm]
+      \node[initial,state, accepting] (S)  {$S$};
+      \node[state] (q1) [right of=S]  {$q_1$};
 
 
+      \path[->] (S)  edge [loop above] node {a} (S)
+      edge [bend left] node {b} (q1)
+      (q1) edge [bend left]  node {b} (S)
+      edge [loop above] node {a} (q1);
+    \end{tikzpicture}
+    \caption{DFA for Exercise $2(a)$, the set of words in $\{a,b\}* $ with an
+            even number of b's.}
+  \end{figure}
+
+  We know that there are only two equivalence classes, thanks to this DFA being
+  in its minimal state. 
+
+  \[ \{ z | \forall w \in L \Leftrightarrow zw \in L \} \]
+  Note that the above describes the class with $z$ having even b's and $w$
+  having even b's. 
+
+  we have a class $\{bb\}$, the class where we have an even number of b's and a
+  class $\{b\}$ in which we have an odd number of b's. All other combinations
+  in the language do not matter.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Ex 20}
 \begin{quote}
   \textbf{Consider the language}
-  \[ L_{a=b,c=d } = \{ w \in \{a,b, c ,d \} \star ∗ \, | \#_a (w) = \#_b (w) \text{ and }
+  \[ L_{a=b,c=d } = \{ w \in \{a,b, c ,d \}^* \, | \#_a (w) = \#_b (w) \text{ and }
     \#_c (w) = \#_d (w )
   \]
   
@@ -242,9 +318,23 @@ look like?}
 \end{quote}
 
 \subsubsection{Answer:}
-\vspace{8cm}
+Clearly, we can see that we would require an infinite number of states to
+count the number of each letter in $A$. Formally, we can see the equivalence
+classes of $L_{a=b,c=d}$ as such:
 
+Consider the set of words
 
+\[ \{ a^i | i \geq 0 \} = \{ \epsilon, a, aa, aaa, \dots\} \]. 
+If $i \neq j \implies a^i \not \sim a^j$, as 
+\[ a^ib^i \in L_{a=b} \text{, but } a^jb^i \notin L_{a=b} \]
+
+We need a similar set of words for c:
+\[ \{ c^n | n \geq 0 \} = \{ \epsilon, c, cc, ccc, \dots\} \]. 
+If $i \neq j \implies c^i \not \sim c^j$, as 
+\[ c^nd^n \in L_{c=d} \text{, but } c^md^n \notin L_{c=d} \]
+
+Each possible $i,n$ gives us an equivalence class. Note that this logic
+followed directly from the automata notes example for $L_{a=b}$.
 
 
 \end{document}
