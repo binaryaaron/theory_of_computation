@@ -94,7 +94,17 @@ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
   union?}
 \end{quote}
 \subsubsection*{Answer:}
+We know that $L* = \epsilon \cup L \cup LL \cup \dots$, the enumerated set of
+all possible combinations of strings made up of the language $L$. We also know
+that for a language to be regular, there must be some DFA or NFA that can
+accept it. 
 
+If we let $M_L$ be the machine that recognizes langague $L$, then let $M_{L^*}$
+be the machine that recognizes $L^*$. To construct $M_{L^*}$, add a new start
+state $S'$ that is also an accepting state to $M_L$. Connect $S'$ to $M_L$ with
+an $\epsilon$ transition and add another $\epsilon$ edge out of $M_L$ such that
+it connects to $S'$. This machine can accept any possible combinatins of valid
+instances of $L$, showing that $L^*$ is indeed regular. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -106,15 +116,39 @@ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
     only if $L^R$ is regular. Why is this harder to prove with DFAs?}
 \end{quote}
 \subsubsection{Answer:}
-\vspace{8cm}
+We know that a language is regular if there is a DFA that can accept it. This
+tells us that in order to prove $W^R$'s regularity, there must be some DFA that
+can accept it. Generally put, we can map our current DFA to a DFA that can
+accept the new reversed language by modifying the start state, accepting
+states, and transition functions as follows, which will be formalized below.
 
+\begin{proof} 
+	Let $M = \{S, A, s^0, S^{yes}, \delta\}$ be the machine that recognizes $L$.
+	Let $M' = {S',A',S^{0'}, S^{yes'}, \delta*'}$ be the NFA that recognizes
+	$L^R$, constructed as below:
+
+	Let $S_{new} \in S$ be a new start state and connect it to all $s \in S^{yes}$
+	with an $\epsilon$ label. 
+	Make $S^0$ into an $S^{yes'}$. 
+	Make $s \in S^{yes} \to S'$ (make accepting states into normal states).
+	Make $S^{0} \to S^{yes'}$ (make the original intial state into the sole
+	accepting state.
+
+	This new NFA will only accept langagues that begin in the first char of the
+	$w^R$ and end in the last char of $w^r$. As we have constructed an NFA that
+	recognizes this $L^R$, we can deduce that that $L^R$ is regular, meaning
+	that $L \Leftrightarrow L^R$.
+\end{proof}
+
+The NFA epsilon ability allows us to more easily create new NFAs from
+exisisting automata.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section*{Ex 12}
 \begin{quote}
-    \textbf{Given a language $L$, let $L1/2$ denote the set of words that can appear
+	\textbf{Given a language $L$, let $L_{1/2}$ denote the set of words that can appear
     as first halves of words in $L$:}
     \[ L_{1/2} = \{ x | \exists y : |x| = |y| \text{ and } x y \in L \} \]
     
@@ -125,7 +159,35 @@ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
   
 \end{quote}
 \subsubsection*{Answer:}
-\vspace{8cm}
+We know that $|x| = |y|$ and must show that the set of words in $L_{1/2}$ can
+be represented by a DFA to be proved regular. FA's limit us in that we cannot
+go back in time or record with external memory, and we may not know how large a
+word $w$ is before it is read. As such, we must (A) build a FA that allows us to
+give $|x| = |y|$ and allows us to verify that (B) $xy \in L$. This is complicated
+but not impossible.
+
+Chris Moore's hint about River Song and the Doctor is a reference to Dr. Who,
+in which the characters are moving toward each other in time, one going
+forward and the other going backward. Given that hint, let us construct a FA
+that allows us to accomplish A and B, mostly given by the product construction
+of two FAs.
+
+\begin{proof}
+	Let us define two FAs:
+	\begin{align}
+		M =& \{Q, \Sigma, \delta, S_0, S^{yes}\} \\
+		M^R =& \{ Q^R, \Sigma, \delta^R, S^{yes^R} \} \\
+		Q^R = & Q \cup \{S_{0}^R \}
+	\end{align}
+	$M$ is the DFA which recognizses $L$ and $M^R$ is the DFA that recognizses
+	$L^R$. We have seen that the reverse operator is closed under
+	regularity. $Q^R$ is the union of states of $M$ and acepting states of
+	$L^R$.
+
+\end{proof}
+
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
