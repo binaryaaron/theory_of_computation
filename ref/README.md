@@ -9,7 +9,8 @@ The folder 'moore_ref' has the following stuff in it:
 * the automata notes are from chis moore as a companion to his book, Nature of
 	Compuatation.
 
-* [Past recorded lectures](https://drive.google.com/file/d/0B4NPTFQXfd8TOFhHc1doYzd0Sjg/view?usp=sharing),
+* [Past recorded
+lectures](https://drive.google.com/folderview?id=0B4NPTFQXfd8TfjZCU2d1dFFVMVFmQWFhcXRPOGx6bUpIaWJ5QW45WDRsVXpmX1V3WjlDc0E&usp=sharing),
 	which are rather helpful and hosted on google drive instead of github. That
 	was extremely important information to share, by the way.
 
