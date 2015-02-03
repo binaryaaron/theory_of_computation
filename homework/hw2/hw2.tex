@@ -77,7 +77,7 @@
 %%% adds a reference to the last page to give a running page count
 \fancyfoot[R]{\thepage of \pageref{LastPage}} %requires lastpage
 %%%% adds author name to bottom left
-\fancyfoot[L]{\textit{Aaron Gonzales; Group 16}}
+\fancyfoot[L]{\textit{Gonzales, Darki, Navada; Group 16}}
 %%% empty center footer
 \fancyfoot[C]{}
 
@@ -91,7 +91,7 @@
 \begin{document}
 
 \title{More Fun With Automata \\ Homework 2, CS500, Fall 2014}
-\author{Aaron Gonzales, \\ group 16}
+\author{Aaron Gonzales, Ahmad Darki, Manasa Navada \\ group 16}
 \maketitle
 
 
@@ -154,6 +154,122 @@ exisisting automata.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Ex 9}
+\begin{quote}
+  \textbf{A for-all NFA is one such that $L(M)$ is the set of strings where every
+  computation path ends in an accepting state. Show how to simulate an for-all
+  NFA with a DFA, and thus prove that a language is recognized by some for-all
+  NFA if and only if it is regular.}
+\end{quote}
+
+\subsubsection*{Answer:}
+This is similar to converting any NFA to a DFA. 
+let \[ A_n = \{ Q, q_0 \in Q, F \subseteq Q, \delta : Q \times \Sigma \to P(Q) \} \]
+  be the $\forall$ NFA we wish to convert.
+
+Let \[ A_d = \{Q' = \mathcal{P}(Q), \{ q_0 \}, \delta'(S,a) = \cup_{q \in S}
+\delta(q,a), F' = \{ S \subseteq Q : S \cap F \neq \varnothing \} \} \]
+be the DFA to which we are mapping $A_n$.
+
+note that
+\begin{align*}
+  Q' =& \mathcal{P}(Q)& Q' \text{ is power set of } Q \\ 
+  F' =& \{ S \subseteq Q : S \cap F \neq \null \} \} &\text{ DFA accepting states
+  as subsets of Q with all elements accepting } 
+\end{align*}
+So all of the DFA's accepting states are on a computation path and that the
+All-paths NFA recognizes a regular language as we have build its DFA.
+\footnote{teammates, My notation here may be slightly wonky}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Ex 10}
+\begin{quote}
+  \textbf{ A parity finite-state automaton, or $PFA$ for short, is like an
+    $NFA$ except that it accepts a string $w$ if and only if the number of
+    accepting paths induced by reading $w$ is odd. Show how to simulate a $PFA$
+    with a $DFA$, and thus prove that a language is recognized by a $PFA$ if
+    and only if it is regular. Hint: this is a little trickier than our
+  previous simulations, but the number of states of the $DFA$ is the same.}
+\end{quote}
+
+\subsubsection*{Answer:}
+Assume an $NFA$ being regular:
+
+\[ 
+  M_2 = (S_2, A, S^0_2, S^{yes}_2, \delta_2)
+\]
+From this $NFA$ we will have a $DFA$ as:
+
+\[ 
+  M = (S, A, S^0, S^{yes}, \delta)
+\]
+
+Where $S = 2^{S_2}$, $S^{yes} = {S^{yes}_2}$, $\delta(T, a) = \cup_{t\in T}
+\delta_2(t, a)$, and $S^{yes} = \{T\cap S^{yes}_2\}$ in which this $DFA$ is
+regular as well. For this problem we need to prove that for an odd number of
+$\delta_2(S^0_2, w) = s^{yes}_2 \in S^{yes}_2$ we will be able to make another
+$DFA$. From this we know that there will be an odd number of transitions of
+$\delta_2(S^0_2, w)$ which means $|w|$ is an odd number as in
+$w=w_1w_2...w_(2n+1)$.  
+
+
+
+
+
+
+\section*{Ex 11} 
+\begin{quote} \textbf{Given finite words $u$ and $v$, say that
+    a word $w$ is an interweave of $u$ and $v$ if I can get $w$ by peeling off
+    symbols of $u$ and $v$, taking the next symbol of $u$ or the next symbol of
+    $v$ at each step, until both are empty. (Note that w must have length $|w|
+    = |u| + |v|$.) For instance, if $u = cat$ and $v = tapir$, then one
+    interleave of $u$ and $v$ is $w = ctaapitr$. Note that, in this case, we
+    don't know which $a$ in $w$ came from $u$ and which came from $v$. Now
+    given two languages $L_{1}$ and $L_{2}$, let $L_{1} \wr L_{2}$ be the set
+    of all interweaves $w$ of $u$ and $v$, for all $u \in L_{1}$ and $v \in
+    L_{2}$. Prove that if $L_{1}$ and $L_{2}$ are regular, then so is $L_{1}
+    \wr L_{2}$.}
+\end{quote}
+\subsubsection*{Answer:}
+We assume $L_1 \wr L_2$ is a language that can be described by the following:
+
+\[ 
+  M_{L_inter} = (S, A, S^0, S^{yes}, \delta)
+\]
+
+and $L_1$ as:
+
+\[ 
+  M_{L_1} = (S_{L_1}, A, S_{L_1}^0, S_{L_1}^{yes}, \delta_{L_1})
+\]
+
+and $L_2$ as:
+
+\[ 
+  M_{L_2} = (S_{L_2}, A, S_{L_2}^0, S_{L_2}^{yes}, \delta_{L_2})
+\]
+
+Let's take  $L' = L_1 \times L_2$ to be the \textit{Cartesian product} of the two languages $L_1$ to $L_2$. Where the language will be as: 
+
+\[ 
+  M_{L_cartesian12} = (S_{L_1} \times S_{L_2}, A, (S_{L_1}^0, S_{L_2}^0), (S_{L_1}^{yes} \cup S_{L_2}^{yes}), \delta_{L_1} \times \delta_{L_2} )
+\]
+
+and also the $L''$ will be the \textit{Cartesian product} of $L_2$ to $L_1$":
+
+\[ 
+  M_{L_cartesian21} = (S_{L_2} \times S_{L_1}, A, (S_{L_2}^0, S_{L_1}^0), (S_{L_1}^{yes} \cup S_{L_2}^{yes}), \delta_{L_2} \times \delta_{L_1} )
+\]
+
+as we know that \textit{Cartesian product} of two regular language is also a regular language. Also the union of two regular languages will be a regular language itself. The idea is to take the interweave as a result of union over the two \textit{Cartesian product}.
+
+\textbf{I can not prove what I'm trying to say here....!!!}
+\vspace{1cm}
+
 
 \section*{Ex 12}
 \begin{quote}
@@ -231,36 +347,6 @@ language can be chopped into $n$ discreet and equal chunks could follow.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section*{Ex 9}
-\begin{quote}
-  \textbf{A for-all NFA is one such that $L(M)$ is the set of strings where every
-  computation path ends in an accepting state. Show how to simulate an for-all
-  NFA with a DFA, and thus prove that a language is recognized by some for-all
-  NFA if and only if it is regular.}
-\end{quote}
-
-\subsubsection*{Answer:}
-This is similar to converting any NFA to a DFA. 
-let \[ A_n = \{ Q, q_0 \in Q, F \subseteq Q, \delta : Q \times \Sigma \to P(Q) \} \]
-  be the $\forall$ NFA we wish to convert.
-
-Let \[ A_d = \{Q' = \mathcal{P}(Q), \{ q_0 \}, \delta'(S,a) = \cup_{q \in S}
-\delta(q,a), F' = \{ S \subseteq Q : S \cap F \neq \varnothing \} \} \]
-be the DFA to which we are mapping $A_n$.
-
-note that
-\begin{align*}
-  Q' =& \mathcal{P}(Q)& Q' \text{ is power set of } Q \\ 
-  F' =& \{ S \subseteq Q : S \cap F \neq \null \} \} &\text{ DFA accepting states
-  as subsets of Q with all elements accepting } 
-\end{align*}
-So all of the DFA's accepting states are on a computation path and that the
-All-paths NFA recognizes a regular language as we have build its DFA.
-\footnote{teammates, My notation here may be slightly wonky}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Ex 13}
 \begin{quote}
   \textbf{Show that if $u \sim_L v$ , then $u a \sim_L v a$ for any $a \in A$.}
