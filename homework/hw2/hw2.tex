@@ -115,6 +115,9 @@ an $\epsilon$ transition and add another $\epsilon$ edge out of $M_L$ such that
 it connects to $S'$. This machine can accept any possible combinatins of valid
 instances of $L$ and includes $\epsilon$, showing that $L^*$ is indeed regular. 
 
+Since we are adding an $\epsilon$ transition, concatenation and union do not
+cover $\epsilon$ closure and we need to account for that.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -175,12 +178,11 @@ be the DFA to which we are mapping $A_n$.
 note that
 \begin{align*}
   Q' =& \mathcal{P}(Q)& Q' \text{ is power set of } Q \\ 
-  F' =& \{ S \subseteq Q : S \cap F \neq \null \} \} &\text{ DFA accepting states
+  F' =& \{ S \subseteq Q : S \cap F \neq \varnothing \} \} &\text{ DFA accepting states
   as subsets of Q with all elements accepting } 
 \end{align*}
 So all of the DFA's accepting states are on a computation path and that the
 All-paths NFA recognizes a regular language as we have build its DFA.
-\footnote{teammates, My notation here may be slightly wonky}
 
 
 
@@ -221,6 +223,7 @@ $w=w_1w_2...w_(2n+1)$.
 
 
 
+
 \section*{Ex 11} 
 \begin{quote} \textbf{Given finite words $u$ and $v$, say that
     a word $w$ is an interweave of $u$ and $v$ if I can get $w$ by peeling off
@@ -235,42 +238,50 @@ $w=w_1w_2...w_(2n+1)$.
     \wr L_{2}$.}
 \end{quote}
 \subsubsection*{Answer:}
-We assume $L_1 \wr L_2$ is a language that can be described by the following:
+
+The machine for $L_1$ can be defined as:
 
 \[ 
-  M_{L_inter} = (S, A, S^0, S^{yes}, \delta)
+	M_{1} = \{S_{1}, A, S_{1}^0, S_{1}^{yes}, \delta_{1} \}
 \]
 
-and $L_1$ as:
+and the machine for $L_2$ as:
 
 \[ 
-  M_{L_1} = (S_{L_1}, A, S_{L_1}^0, S_{L_1}^{yes}, \delta_{L_1})
+	M_{2} = \{ S_{2}, A, S_{2}^0, S_{2}^{yes}, \delta_{2} \}
 \]
 
-and $L_2$ as:
+The product construction of the two languages allows us to run them in
+parallel. Let $L' = L_1 \times L_2$ to be the \textit{Cartesian product} of the
+two languages $L_1$ to $L_2$, with its machine defined as:
 
 \[ 
-  M_{L_2} = (S_{L_2}, A, S_{L_2}^0, S_{L_2}^{yes}, \delta_{L_2})
+	M' = \{ S' = \{ S_{1} \times S_{2} \} , A, S'^0 = \{ S_{1}^0 \cup  S_{2}^0
+\}, S'^{yes} = \{ S_{1}^{yes} \cup S_{2}^{yes} \} , \delta' = \{ \delta_{1}
+\times \delta_{2} \} \}
 \]
 
-Let's take  $L' = L_1 \times L_2$ to be the \textit{Cartesian product} of the two languages $L_1$ to $L_2$. Where the language will be as: 
 
-\[ 
-  M_{L_cartesian12} = (S_{L_1} \times S_{L_2}, A, (S_{L_1}^0, S_{L_2}^0), (S_{L_1}^{yes} \cup S_{L_2}^{yes}), \delta_{L_1} \times \delta_{L_2} )
-\]
+Now, in order to handle the potential for various combinations of valid
+interweaves, we need to use the power set of $L'$, which would result in this
+final machine, $M$, that  recognizes $L_1 \wr L_2$.
 
-and also the $L''$ will be the \textit{Cartesian product} of $L_2$ to $L_1$":
+\begin{align*}
+	M =& (S, A, S_0, S^{yes}, \delta) \\
+	S =& \mathcal{P}(S')  \\
+	S_0 =& S_{L_1}^0 \cup S_{L_2}^0 \\
+	S^{yes} =& s \in S'^{yes} \\ 
+	\delta =& \{ \{\delta_1, S_n, a \in A \}, \{ \delta_2, S_n, a \in A \} \} 
+\end{align*}
 
-\[ 
-  M_{L_cartesian21} = (S_{L_2} \times S_{L_1}, A, (S_{L_2}^0, S_{L_1}^0), (S_{L_1}^{yes} \cup S_{L_2}^{yes}), \delta_{L_2} \times \delta_{L_1} )
-\]
+This allows us to accept words that are valid in and order of $M_1$  and $M_2$,
+such as the word ``cat'' $\in L_1$ and ``cat'' $\in L_2$ allows us to accept
+the first word in any valid accpeting state of $M_1$ and continue weaving it
+with the rest of the possible states of $M_2$, e.g., ``cacatt''. 
 
-as we know that \textit{Cartesian product} of two regular language is also a regular language. Also the union of two regular languages will be a regular language itself. The idea is to take the interweave as a result of union over the two \textit{Cartesian product}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
-\textbf{I can not prove what I'm trying to say here....!!!}
-\vspace{1cm}
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EX 12 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Ex 12}
 \begin{quote}
 	\textbf{Given a language $L$, let $L_{1/2}$ denote the set of words that can appear
