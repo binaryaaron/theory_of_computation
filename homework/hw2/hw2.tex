@@ -527,27 +527,29 @@ followed directly from the automata notes example for $L_{a=b}$.
 \node[state]         (G) [below of=S]                       {$1$};
 \node[state]         (H) [below of=G]                       {$2$};
 \path[->]
-      (S) edge [left]      node   {$ b $} (C)
-      (S) edge [bend right]     node  {$ a $} (A)
+      (S) edge [bend left]      node   {$ b $} (C)
+      (S) edge [bend left]     node  {$ a $} (A)
+	  (S) edge [bend left]     node   {$ c $} (E)
+	  (S) edge [bend left] node {$ d $} (G)
       
-      (A) edge [left]      node {$ b $} (S)
-      (B) edge [left]      node {$ b $} (A)
-      (C) edge [left]      node {$ b $} (D)
+      (A) edge [bend left]      node {$ b $} (S)
+      (A) edge [bend left]      node {$ a $} (B)
+      (B) edge [bend left]      node {$ b $} (A)
       
-      (D) edge [bend right]      node {$ a $} (C)
-      (C) edge [bend right]      node {$ a $} (S)
-      (A) edge [bend right]      node {$ a $} (B)
+      (C) edge [bend left]      node {$ a $} (S)
+      (C) edge [bend left]      node {$ b $} (D)
       
-      (S) edge       node   {$ c $} (E)
-      (S) edge       node {$ d $} (G)
+      (D) edge [bend left]      node {$ a $} (C)
       
-      (E) edge      node {$ c $} (F)
-      (H) edge       node  {$ c $} (G)
-      (G) edge      node {$ c $} (S)
+	  (E) edge [bend left] node {$ d $} (S)
+	  (E) edge [bend left] node {$ c $} (F)
       
-      (F) edge       node {$ d $} (E)
-      (E) edge       node {$ d $} (S)
-      (G) edge       node {$ d $} (H);
+	  (F) edge [bend left] node {$ d $} (E)
+
+	  (G) edge [bend left ]node {$ d $} (H)
+	  (G) edge [bend left] node {$ c $} (S)
+
+	  (H) edge [bend left] node  {$ c $} (G);
 \end{tikzpicture}
 
 
