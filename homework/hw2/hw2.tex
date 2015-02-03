@@ -381,21 +381,23 @@ L \implies ua \sim_L va$.
   2. Use them to give the minimal DFA for each language, or prove that the DFA
   you designed before is minimal.}
 \end{quote}
+t
+\subsection*{Part 1}
 \subsubsection{Answer:}
-  \begin{figure}[htp]
-    \centering
-    \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2cm]
-      \node[initial,state, accepting] (S)  {$S$};
-      \node[state] (q1) [right of=S]  {$q_1$};
+\begin{figure}[htp]
+	\centering
+	\begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2cm]
+		\node[initial,state, accepting] (S)  {$S$};
+		\node[state] (q1) [right of=S]  {$q_1$};
 
 
-      \path[->] (S)  edge [loop above] node {a} (S)
-      edge [bend left] node {b} (q1)
-      (q1) edge [bend left]  node {b} (S)
-      edge [loop above] node {a} (q1);
-    \end{tikzpicture}
-    \caption{DFA for Exercise $2(a)$, the set of words in $\{a,b\}* $ with an
-            even number of b's.}
+		\path[->] (S)  edge [loop above] node {a} (S)
+		edge [bend left] node {b} (q1)
+		(q1) edge [bend left]  node {b} (S)
+		edge [loop above] node {a} (q1);
+	\end{tikzpicture}
+	\caption{DFA for Exercise $2(a)$, the set of words in $\{a,b\}* $ with an
+			even number of b's.}
   \end{figure}
 
   We know that there are only two equivalence classes, thanks to this DFA being
@@ -408,6 +410,74 @@ L \implies ua \sim_L va$.
   we have a class $\{bb\}$, the class where we have an even number of b's and a
   class $\{b\}$ in which we have an odd number of b's. All other combinations
   in the language do not matter.
+
+
+  \subsection*{Part 2}
+\begin{quote}
+  \textbf{Describe the equivalence classes of the three languages from Exercise
+  2. Use them to give the minimal DFA for each language, or prove that the DFA
+  you designed before is minimal.}
+\end{quote}
+\subsubsection{Exercise 2.2: The set of strings in $\{a, b, c\}^*$ where there is no $c$ anywhere to the left of an $a$.}
+As it has been proven that the following DFA is a minimal, with respect to the number of states the \textit{equivalence class} are 3 as followed:
+
+\begin{tikzpicture}[shorten >=1pt,auto,node distance=3 cm, scale = 1, transform shape]
+
+
+\node[initial,state,accepting] (S)                                    {$S$};
+\node[state,accepting]         (B) [right of=S]                       {$q_1$};
+\node[state]                   (C) [right of=B]					      {$q_2$};
+
+\path[->]
+      (S) edge [loop above] node [align=center]  {$ a, b $} (S)
+      (S) edge [bend left]       node {$ c $} (B)
+      (B) edge [loop above] node [align=center]  {$ b, c $} (B)
+      (B) edge [bend left] node [align=center]  {$ a $} (C)
+      (C) edge [loop above] node [align=center]  {$ a, b, c $} (C);
+\end{tikzpicture}
+
+\begin{enumerate}
+  \item $[\epsilon] = [a] = [ab] = [aba]$, The set of strings in $w$ without any $c$.
+  \item $[c] = [cb] = [cbc]$, The set of strings in $w$ starting with $c$.
+  \item $[c] = [cb] = [cbc] = [cbcb] = [cbcba]$, The set of strings in $w$ where there is $c$ to the left of $a$
+\end{enumerate}
+
+
+
+
+  \subsection*{Part 3}
+  \begin{quote}
+	  \textbf{ The set of strings in $\{0,1\}^*$ that encode, in binary,
+  an integer w that is a multiple of 3. Interpret the empty string $\epsilon$
+  as the number zero. }
+  \end{quote}
+  \subsubsection{Answer:}
+  A minimal DFA for this language has three states. Each state represents the
+  reminder of the number when it is divided by 3.
+  The equivalence classes for this language are:  
+  \begin{enumerate}
+	\item  w containing the reminder 0. (Also the start state and accepting state)
+	\item  w containing the reminder 1.
+	\item  w containing the reminder 2.
+\end{enumerate}
+  Considering the following transition between these gives the following DFA.
+
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+                    semithick]
+
+  \node[initial,state, accepting] (A) {$1$};
+  \node[state]         (B) [right of=A] {$2$};
+  \node[state]         (C) [right of=B] {$3$};
+
+  \path (A) edge [bend right] node {1} (B)
+            edge [loop above] node {0} (A)
+        (B) edge [bend right] node {1} (A)
+            edge [bend right] node {0} (C)
+        (C) edge [bend right] node {0} (B)
+            edge [loop above] node {1} (C);
+\end{tikzpicture}
+
+Hence it is proved that the DFA we designed in HW1 is minimal. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -440,6 +510,46 @@ If $i \neq j \implies c^i \not \sim c^j$, as
 
 Each possible $i,n$ gives us an equivalence class. Note that this logic
 followed directly from the automata notes example for $L_{a=b}$.
+
+\begin{tikzpicture}[shorten >=1pt,auto,node distance=2 cm, scale = 1, transform shape]
+
+
+\node[state,accepting] (S)                                    {$0$};
+\node[state]         (A) [right of=S]                       {$1$};\\
+\node[state]         (B) [right of=A]                       {$2$};
+
+\node[state]         (C) [left of=S]                        {$-1$};
+\node[state]         (D) [left of=C]					    {$-2$};
+
+\node[state]         (E) [above of=S]                       {$-1$};
+\node[state]         (F) [above of=E]                       {$-2$};
+
+\node[state]         (G) [below of=S]                       {$1$};
+\node[state]         (H) [below of=G]                       {$2$};
+\path[->]
+      (S) edge [left]      node   {$ b $} (C)
+      (S) edge [bend right]     node  {$ a $} (A)
+      
+      (A) edge [left]      node {$ b $} (S)
+      (B) edge [left]      node {$ b $} (A)
+      (C) edge [left]      node {$ b $} (D)
+      
+      (D) edge [bend right]      node {$ a $} (C)
+      (C) edge [bend right]      node {$ a $} (S)
+      (A) edge [bend right]      node {$ a $} (B)
+      
+      (S) edge       node   {$ c $} (E)
+      (S) edge       node {$ d $} (G)
+      
+      (E) edge      node {$ c $} (F)
+      (H) edge       node  {$ c $} (G)
+      (G) edge      node {$ c $} (S)
+      
+      (F) edge       node {$ d $} (E)
+      (E) edge       node {$ d $} (S)
+      (G) edge       node {$ d $} (H);
+\end{tikzpicture}
+
 
 
 \end{document}

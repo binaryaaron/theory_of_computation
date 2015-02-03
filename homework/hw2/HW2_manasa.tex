@@ -1,0 +1,105 @@
+\documentclass[11pt]{article}
+\usepackage{graphicx}
+\graphicspath{ {C:/Users/Manasa/Pictures/} }
+
+\begin{document}
+\centerline{CS500 - Homework 2} 
+
+\centerline{Manasa Navada} 
+
+\centerline{manasa.navada@gmail.com} 
+\null
+
+\begin{flushleft}
+\textbf{Exercise 7:} \\
+\textit{Showthat if L is regular then $L^*$ is regular. Why does it not suffice to use the fact that the regular languages are closed under concatenation and union?}
+
+\null
+$L^*$ can be represented as: \\
+$L^*$ = $\epsilon \cup L \cup LL \cup L^3 \cup L^4$...\\
+The union of regular language is regular.\\
+\null
+If L1 is a regular language, there exists a regular expression r1 such that L1 = L(r1)\\
+$r_1^*$ is a regular expression denoting $L_1^*$\\
+This implies that $L_1^*$ is closed and it is regular. \\ 
+\null
+\textbf{Exercise 8:} \\
+\textit{Given a string w, let $w^R$ denote w written in reverse. Given a language L, let $L^R = \{w^R | w \in L \}.$ Prove that L is regular if and only if $L^R$ is regular. Why is this harder to prove with DFAs?}\\
+\null
+Consider $L^R$ is regular.\\
+To convert this into L, we can reverse all the strings of finite automata.\\
+Make the old start state as the only new accepting state.\\
+Create a new start state $p_0$ with $\delta(p_0, \epsilon)$ =F (The old accepting states)\\
+The resulting NFA simulates L and therefore accepts a string w if and only if it accept $w^R$.\\
+\null
+This is harder to prove with DFA because we can not force a DFA to have a single final state. Second, a state may have two incoming transitions on the same character, resulting in non-determinism when reversed.\\
+\null
+\textbf{Exercise 9:} \\
+\textit{A for-all NFA is one such that L(M) is the set of strings where every computation path ends in an accepting state. Show how to simulate an for-all NFA with a DFA, and thus prove that a language is recognized by some
+for-all NFA if and only if it is regular.}\\
+\null
+Here we need to keep track of all possible states that an NFA can be in at each step. While the NFA’s transitions
+are nondeterministic, this set changes in a deterministic way. Namely, after reading a symbol a, a state s is possible if s $\in \delta(t ,a)$ for some state t.\\
+This lets us simulate an NFA M with a DFA $M_{DFA}$ as follows. \\
+If $M's$ set of states is S, then $M_{DFA}'s$ set of states $S_{DFA}$ is the power set P(S)= $\{T \subseteq S\}$, its initial state $s_{DFA}^0$ is the set $\{s^0\}$, and its transition function is:\\
+$\delta_{DFA}(T,a)= \bigcup_ {t \in T} \delta_M(t ,a)$ .\\
+Then for any string w, $\delta_{DFA}^*(s_{DFA}^0,w)$ is the set of states that M could be in after reading w. Finally, M accepts if it could end in at least one accepting state, so we define the accepting set of $M_{DFA}$ as: \\
+$S_{DFA}^{yes}$ = $\{T \cap S^{yes} \neq \phi\}$. \\
+Then $L(M_{DFA})$= L(M).
+
+\null
+\textbf{Exercise 12:} \\
+\textit{Given a language L, let $L_{1/2}$ denote the set of words that can appear as first halves of words in L:\\
+\begin{center}
+$L_{1/2} = \{x | \exists y : |x| = |y |$ and xy $\in$ L $\}$,
+\end{center} 
+where $|w|$ denotes the length of a word w. Prove that if L is regular, then $L_{1/2}$ is regular. Generalize this to $L_{1/3}$, the set of words that can appear as middle thirds of words in L:\\
+\begin{center}
+$L_{1/3} = \{ y | \exists x,z : |x| = |y |= |z |$ and xyz $\in L\}$
+\end{center}
+}.\\
+start with a DFA that accepts L with states Q and accepting states F. The idea is that for xy to end in an accepting state, x must end in a “modified accepting state,” meaning a state which will end in an accepting state if we read y. Formally, we define the set of modified accepting states as $F_y$ = $\{q \in Q : \delta^*
+(q, y) \in F\}$.\\
+As we read x, we guess the symbols of y in reverse order. Specifically, when we read the $i^{th}$ symbol of x, we guess the $i^{th}$-to-last symbol b of y. Let y(i) denote the last i symbols of y; then we modify the accepting states from $F_{y(i-1)}$ to $F_{y(i)} = \{q \in Q : \delta(q, b) \in F_{y(i-1)}\}$.
+After we have read all of x we have guessed $F_y$.
+To turn this into an NFA for $L_{1/2}$, we just need to expand the set of states from Q to Q × P(Q) so we can keep track both of the DFA’s state and the modified $F_y \in P(Q)$. Then our accepting states are $\{(q, F_y) : q \in F_y\}$.\\
+\null
+Similarly we can generalize it for $L_{1/3}$ \\
+\begin{center}
+$L_{1/3} = \{ y | \exists x,z : |x| = |y |= |z |$ and xyz $\in L\}$
+\end{center}
+Then $L_{1/3}$ is the set of middle thirds of words in L, and by guessing the first and last thirds x and z we can prove that $L_{1/3}$ is regular if L is.\\
+\null
+\textbf{Exercise 13:} \\
+\textit{Show that if u $\sim _L$ v , then ua $\sim_L$ va for any a $\in$ A.}\\
+\null
+Given that: u $\sim _L$ v. This means, for all w, uw $\in$ L if and only if vw $ \in$ L. This can contain words that begin with a (words that are of the form w = ab). So for all b, uab $ \in $ L if and only if vab $\in$ L hence we can say ua $\sim_L$ va.\\
+\null
+\textbf{Exercise 20:} \\
+\textit{Consider the language: \\
+\begin{center}
+$L_{a=b,c=d}$ = $\{w \in \{a,b,c,d \}^*$  $|$  $\#_a(w)= \#_b(w)$ and $\#_c(w)=\#_d(w)\}$,
+\end{center}
+What are its equivalence classes? What does its minimal infinite-state machine look like?} \\
+\null
+For this language, there can be infinite possibilies of equivalence classes. The machine keeps track of inputs relative to other inputs. For example abcd is equivalent to aabbccdd.\\
+Hence we can say that the language is not regular and it can not be accepted by the machine.\\
+\null
+\textbf{Exercise 14:} \\
+\textit{Describe the equivalence classes of the three languages from Exercise 2. Use them to give the minimal
+DFA for each language, or prove that the DFA you designed before is 
+minimal.\\
+Exercise 2: Part 1: The set of strings in $\{a,b\}^*$ with an even number of b’s.}\\
+\null
+The equilavence classes for this language is: \\
+1. w contains zero b's (This is the start state)\\
+2. w contains odd number of b's\\
+3. w contains even number of b's(accepting state)\\
+\null
+Considering the following transition between these gives the following DFA:\\
+\includegraphics[scale=0.5]{1}
+
+Hence it is proved that the DFA we designed in HW1 is minimal.
+\end{flushleft}
+
+\end{document}

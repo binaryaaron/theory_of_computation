@@ -1,0 +1,26 @@
+\documentclass[11pt]{article}
+\usepackage{graphicx}
+\graphicspath{ {C:/Users/Manasa/Pictures/} }
+\begin{document}
+
+\begin{flushleft}
+\textbf{Exercise 14:} \\
+\textit{Describe the equivalence classes of the three languages from Exercise 2. Use them to give the minimal
+DFA for each language, or prove that the DFA you designed before is 
+minimal.\\
+Exercise 2: Part 3: The set of strings in $\{0,1\}^*$ that encode, in binary, an integer w that is a multiple of 3. Interpret the empty string $\epsilon$ as the number zero.}\\
+\null
+A minimal DFA for this language has three states. Each state represents the reminder of the number when it is divided by 3.\\
+\null
+The equivalence classes for this language are: \\
+1. w containing the reminder 0. (Also the start state and accepting state)\\
+2. w containing the reminder 1.\\
+3. w containing the reminder 2.\\
+\null
+Considering the following transition between these gives the following DFA.\\
+\includegraphics[scale=0.75]{3}\\
+\null
+Hence it is proved that the DFA we designed in HW1 is minimal. \\
+\null
+\end{flushleft}
+\end{document}
