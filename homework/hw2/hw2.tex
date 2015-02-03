@@ -77,7 +77,7 @@
 %%% adds a reference to the last page to give a running page count
 \fancyfoot[R]{\thepage of \pageref{LastPage}} %requires lastpage
 %%%% adds author name to bottom left
-\fancyfoot[L]{\textit{Gonzales, Darki, Navada; Group 16}}
+\fancyfoot[L]{\textit{Gonzales, Darki, Navada; Groups 11,16,30}}
 %%% empty center footer
 \fancyfoot[C]{}
 
@@ -91,7 +91,8 @@
 \begin{document}
 
 \title{More Fun With Automata \\ Homework 2, CS500, Fall 2014}
-\author{Aaron Gonzales, Ahmad Darki, Manasa Navada \\ group 16}
+\author{Aaron Gonzales (group 16), Ahmad Darki (group 11), Manasa Navada (group
+30) }
 \maketitle
 
 
@@ -310,10 +311,6 @@ of two FAs.
 
 \begin{proof}
 	Let us define two FAs:
-        \footnote{teammates, My notation here may be slightly wonky (the
-          NFA/DFA notation needs cleaning and I will gladly
-        put in a figure to help explain this in better detail regarding the overlap of
-        the boundary states for the words on both parts a and b}
 	\begin{align}
 		M =& \{Q, \Sigma, \delta, S_0, S^{yes}\} \\
 		M^R =& \{ Q^R, \Sigma, \delta^R, S^{yes^R} \} \\
@@ -553,5 +550,91 @@ followed directly from the automata notes example for $L_{a=b}$.
 \end{tikzpicture}
 
 
+\section*{Combined Group Critiques}
+\subsection{Aaron Gonzales}
+\begin{itemize}
+	\item Ex 7: Forgot to explain 2nd part of the question; otherwise correct.
+	\item Ex: 8: Mentioned lack of both sides of ``iff'', but this was shown
+		succicntly. Didn't explicitly mention difficulty of using DFAs.
+	\item 9: complete and no critiques
+	\item 12: Good approach; lacking slightly in clarity
+	\item 13: No comments
+	\item 14: Correct
+	\item 20: Correct
+\end{itemize}
+\subsection{Ahmad Darki}
+
+\begin{itemize}
+\end{itemize}
+
+\item Aaron Gonzales:
+	\begin{itemize}
+		\item Ex. 7: I believe i can follow your example, though your
+			explanation of how the accepting state connects to the start state
+			is slightly unclear. There are minor typesetting issues that could
+			be corrected.
+		\item Ex. 8: Note, in the \\align or \\equation environments, you can
+			use the command \\text{xxx} to display text in a more readable
+			format - i'd suggest making use of this in the future for things
+			like ``a is a string from A''
+		\item Ex. 11: not attempted
+		\item Ex. 10: I don't know if i follow your answer at all. You seem to
+			be arbitrarily claiming that you cna make an odd-numbered state DFA
+			and stating that $S^{Yes}_2 \in S^{Yes}_2$ which is tautological.
+		\item Ex. 13,14,15: Not attempted
+	\end{itemize}
+	\end{itemize}
+	\begin{itemize}
+		\item Manasa Navada
+			\begin{itemize}
+				\item Ex. 7: Explanation seems correct
+				\item Ex. 8: There are some typing errors which need to be
+					fixed. I could not follow the explanation clearly.
+				\item Ex. 10: Could not really understand the solution.
+				\item Ex. 11: Incomplete solution
+				\item Ex. 13: Correct
+				\item Ex. 14: correct
+				\item Ex. 20: Explanation is correct but I think we should use
+					Aaron’s solution for this exercise since it is more
+					detailed.
+			\end{itemize}
+	\end{itemize}
+\subsection{Manasa Navada}
+\begin{itemize}
+	\item Ex7: Regular expressions were not appropriate to use at that
+		point in the assignment, though it was a correct answer. 
+
+	\item Ex8: difficult to follow explaination for part two and lack of
+		proving both directions for the ``iff''. 
+
+	\item Ex 9: No issues.
+
+	\item Ex 12: Incorrect approach as the automata cannot keep track of a
+		previous state. Difficult to follow.
+
+	\item Ex 13: Correct; no issues.
+
+	\item Ex 14: Correct; no issues.
+
+	\item Ex 20: Poor explaination and lack of evidence as to why there are
+		infinite equivalence classes.
+\end{itemize}
+
+
+\section*{Group contributions}
+\subsection{Aaron Gonzales}
+\begin{itemize}
+	\item Used explainations from his problems, typeset and compiled final
+		report, extra work done on odd problems that were not initially
+		completed or attempted. 
+\end{itemize}
+\subsection{Ahmad Darki}
+\begin{itemize}
+	\item blah
+\end{itemize}
+\subsection{Manasa Navada}
+\begin{itemize}
+	\item blah
+\end{itemize}
 
 \end{document}
