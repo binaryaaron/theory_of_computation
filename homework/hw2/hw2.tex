@@ -200,24 +200,29 @@ All-paths NFA recognizes a regular language as we have build its DFA.
 \end{quote}
 
 \subsubsection*{Answer:}
-Assume an $NFA$ being regular:
+Same as the previous question, assume an $NFA$:
 
-\[ 
-  M_2 = (S_2, A, S^0_2, S^{yes}_2, \delta_2)
-\]
-From this $NFA$ we will have a $DFA$ as:
+\[ A_n = \{ Q, q_0 \in Q, F \subseteq Q, \delta : Q \times \Sigma \to P(Q) \} \]
 
-\[ 
-  M = (S, A, S^0, S^{yes}, \delta)
-\]
+And the $PFA$:
 
-Where $S = 2^{S_2}$, $S^{yes} = {S^{yes}_2}$, $\delta(T, a) = \cup_{t\in T}
-\delta_2(t, a)$, and $S^{yes} = \{T\cap S^{yes}_2\}$ in which this $DFA$ is
-regular as well. For this problem we need to prove that for an odd number of
-$\delta_2(S^0_2, w) = s^{yes}_2 \in S^{yes}_2$ we will be able to make another
-$DFA$. From this we know that there will be an odd number of transitions of
-$\delta_2(S^0_2, w)$ which means $|w|$ is an odd number as in
-$w=w_1w_2...w_(2n+1)$.  
+\[ A_d = \{Q' = \mathcal{P}(Q), \{ q_0 \}, \delta'(S,a) = \oplus_{q \in S}
+\delta(q,a), F' = \{ S \subseteq Q : S \cap F \neq \varnothing \} \} \]
+
+in which $Q' = \mathcal{P}(Q)$ is the power set of $Q$, and $F' = \{ S \subseteq Q : S \cap F \neq \varnothing \} \}$ is the $DFA$ accepting states as subsets of $Q$ with all elements accepting.
+
+We will consider a new accepting state called $f$ where $f \subseteq F'$ and
+all the accepting states will have an $\epsilon$ transition to it. This state
+will assist us by considering only one final state in order to audit the number
+of paths. The idea of getting the number of paths is to do a symmetric
+difference between the sets of all visited states. This will help us eliminate
+the even number of paths which visited the $f$ state. At the end we will do a
+summation over the cardinality of each set, and we will consider the remainder
+of this value divided by 2 to show if the number of paths is even or odd.
+
+
+
+
 
 
 
@@ -551,11 +556,13 @@ followed directly from the automata notes example for $L_{a=b}$.
 
 
 \section*{Combined Group Critiques}
+These are sythesized critiques for each member's problems that were turned in
+by the initial due date.
 \subsection{Aaron Gonzales}
 \begin{itemize}
 	\item Ex 7: Forgot to explain 2nd part of the question; otherwise correct.
-	\item Ex: 8: Mentioned lack of both sides of ``iff'', but this was shown
-		succicntly. Didn't explicitly mention difficulty of using DFAs.
+	\item Ex: 8: Mentioned lack of both sides of ``iff''.(This was shown
+		succicntly.) Didn't explicitly mention difficulty of using DFAs.
 	\item 9: complete and no critiques
 	\item 12: Good approach; lacking slightly in clarity
 	\item 13: No comments
@@ -564,41 +571,15 @@ followed directly from the automata notes example for $L_{a=b}$.
 \end{itemize}
 \subsection{Ahmad Darki}
 
-\begin{itemize}
-\end{itemize}
+	\begin{itemize}
+		\item Ex. 7: Explanation is correct but somewhat unclear.
+    \item Ex. 8: Difficult to follow the explaination.
+    \item Ex. 11: not attempted
+		\item Ex. 10: Incomplete and incorrect solution.
+    \item Ex. 13,14: Not attempted by intial date; added in (correctly) after
+      \item Ex. 20: Correct
+	\end{itemize}
 
-\item Aaron Gonzales:
-	\begin{itemize}
-		\item Ex. 7: I believe i can follow your example, though your
-			explanation of how the accepting state connects to the start state
-			is slightly unclear. There are minor typesetting issues that could
-			be corrected.
-		\item Ex. 8: Note, in the \\align or \\equation environments, you can
-			use the command \\text{xxx} to display text in a more readable
-			format - i'd suggest making use of this in the future for things
-			like ``a is a string from A''
-		\item Ex. 11: not attempted
-		\item Ex. 10: I don't know if i follow your answer at all. You seem to
-			be arbitrarily claiming that you cna make an odd-numbered state DFA
-			and stating that $S^{Yes}_2 \in S^{Yes}_2$ which is tautological.
-		\item Ex. 13,14,15: Not attempted
-	\end{itemize}
-	\end{itemize}
-	\begin{itemize}
-		\item Manasa Navada
-			\begin{itemize}
-				\item Ex. 7: Explanation seems correct
-				\item Ex. 8: There are some typing errors which need to be
-					fixed. I could not follow the explanation clearly.
-				\item Ex. 10: Could not really understand the solution.
-				\item Ex. 11: Incomplete solution
-				\item Ex. 13: Correct
-				\item Ex. 14: correct
-				\item Ex. 20: Explanation is correct but I think we should use
-					Aaron’s solution for this exercise since it is more
-					detailed.
-			\end{itemize}
-	\end{itemize}
 \subsection{Manasa Navada}
 \begin{itemize}
 	\item Ex7: Regular expressions were not appropriate to use at that
@@ -630,11 +611,12 @@ followed directly from the automata notes example for $L_{a=b}$.
 \end{itemize}
 \subsection{Ahmad Darki}
 \begin{itemize}
-	\item blah
+	\item worked on remaining odd problems, contributed to final report, used
+    some of his solutions in writeup.
 \end{itemize}
 \subsection{Manasa Navada}
 \begin{itemize}
-	\item blah
+	\item Critiqued group member's solutions; used parts of a few answers.
 \end{itemize}
 
 \end{document}
