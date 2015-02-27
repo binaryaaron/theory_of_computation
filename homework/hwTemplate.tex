@@ -1,5 +1,5 @@
 %%%%%latex preamble%%%%%
-\documentclass[titlepage]{article}\usepackage[]{graphicx}\usepackage[]{color}
+\documentclass[titlepage]{article}
 %% maxwidth is the original width if it is less than linewidth
 %% otherwise use linewidth (to make sure the graphics do not exceed the margin)
 \makeatletter
@@ -12,55 +12,29 @@
 }
 \makeatother
 
+\usepackage[]{graphicx}
+\usepackage[]{color}
 
 \usepackage{listings}
-\definecolor{mygreen}{rgb}{0,0.6,0}
-\definecolor{mygray}{rgb}{0.5,0.5,0.5}
-\definecolor{mymauve}{rgb}{0.58,0,0.82}
-\lstset{ %
-  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
-  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
-  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
-  breaklines=true,                 % sets automatic line breaking
-  captionpos=b,                    % sets the caption-position to bottom
-  commentstyle=\color{mygreen},    % comment style
-  deletekeywords={...},            % if you want to delete keywords from the given language
-  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
-  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
-  frame=single,                    % adds a frame around the code
-  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
-  keywordstyle=\color{blue},       % keyword style
-  language=Python,                 % the language of the code
-  morekeywords={*,...},            % if you want to add more keywords to the set
-  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
-  numbersep=5pt,                   % how far the line-numbers are from the code
-  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
-  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
-  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
-  showstringspaces=false,          % underline spaces within strings only
-  showtabs=false,                  % show tabs within strings adding particular underscores
-  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
-  stringstyle=\color{mymauve},     % string literal style
-  tabsize=2,                       % sets default tabsize to 2 spaces
-  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
-}
 \usepackage{alltt}
+% maths
 \usepackage[sc]{mathpazo}
 \usepackage{amsmath, amsthm, amssymb}
 \usepackage{graphicx}
 \usepackage[T1]{fontenc}
 \usepackage{geometry}
 \geometry{verbose,tmargin=2.5cm,bmargin=2.5cm,lmargin=1.5cm,rmargin=1.5cm}
-\setcounter{secnumdepth}{2}
-\setcounter{tocdepth}{2}
 \usepackage{url}
 \usepackage{hyperref}
+% removes border around hyperlinks
 \hypersetup{pdfborder = {0 0 0}}
 \usepackage{float}
 \usepackage{bm}
 \usepackage{tikz}
+
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
  %changes default sectioning commands -> 1,a, etc.
-%\usepackage{breakurl}
 \renewcommand{\thesubsection}{(\alph{subsection})}
 \renewcommand{\thesubsubsection}{\roman{subsection}.}
 \usepackage{lastpage}
@@ -75,7 +49,7 @@
 %%% puts a line in the footer
 \renewcommand{\footrulewidth}{0.4pt}
 %%% adds a reference to the last page to give a running page count
-\fancyfoot[R]{\thepage of \pageref{LastPage}} %requires lastpage
+\fancyfoot[R]{\thepage~of~\pageref{LastPage}} %requires lastpage
 %%%% adds author name to bottom left
 \fancyfoot[L]{\textit{Aaron Gonzales; Group 16}}
 %%% empty center footer
@@ -90,7 +64,7 @@
 
 \begin{document}
 
-\title{More Fun With Automata \\ Homework X, CS500, Fall 2014}
+\title{Some title\\ Homework X, CS500, Fall 2014}
 \author{Aaron Gonzales, \\ group 16}
 \maketitle
 
@@ -135,7 +109,8 @@ By linearity of expectation we can state it as such:
 	&= \frac{n}{n} \\
 	& = 1
 \end{align*}
-We only expect one drunken debutant to get in her own porche. (Note - This presumes
+
+We only expect one drunken debutant to get in her own porche. (Note --- This presumes
 that all of the debutants made it out of the party and no one passed out
 inside.)
 
@@ -147,7 +122,7 @@ inside.)
 
 \begin{itemize}
   \item \textbf{}
-  \item \textbf{ }
+  \item \textbf{}
 \end{itemize}
 
 
@@ -160,4 +135,4 @@ inside.)
 
 
 
-  \end{document}
+\end{document}

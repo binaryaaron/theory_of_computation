@@ -14,36 +14,6 @@
 
 \usepackage{rotating}
 \usepackage{listings}
-\definecolor{mygreen}{rgb}{0,0.6,0}
-\definecolor{mygray}{rgb}{0.5,0.5,0.5}
-\definecolor{mymauve}{rgb}{0.58,0,0.82}
-\lstset{ %
-  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
-  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
-  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
-  breaklines=true,                 % sets automatic line breaking
-  captionpos=b,                    % sets the caption-position to bottom
-  commentstyle=\color{mygreen},    % comment style
-  deletekeywords={...},            % if you want to delete keywords from the given language
-  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
-  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
-  frame=single,                    % adds a frame around the code
-  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
-  keywordstyle=\color{blue},       % keyword style
-  language=Python,                 % the language of the code
-  morekeywords={*,...},            % if you want to add more keywords to the set
-  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
-  numbersep=5pt,                   % how far the line-numbers are from the code
-  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
-  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
-  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
-  showstringspaces=false,          % underline spaces within strings only
-  showtabs=false,                  % show tabs within strings adding particular underscores
-  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
-  stringstyle=\color{mymauve},     % string literal style
-  tabsize=2,                       % sets default tabsize to 2 spaces
-  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
-}
 \usepackage{alltt}
 \usepackage[sc]{mathpazo}
 \usepackage{amsmath, amsthm, amssymb}
@@ -103,13 +73,21 @@
   \[ L = \{ bab, cca, abc\} \]
   then
   \[ sort(L) = \{ abb, acc, abc\}. \]
-  \textbf{ Give an example of a regular langauge \(L_1\) such that
+  \textbf{Give an example of a regular langauge \(L_1\) such that
   \(sort(L_1)\)  is nonregular and a nonregular language \(sort(L_2)\) such
   that \(sort(L_2)\) is regular. You may use any technique you like to prove that
   the languages are regular.}
 \end{quote}
-\subsubsection*{Answer:}
-\vspace{5cm}
+\subsection{Regular to Nonregular}
+Let \[ L_1 = \text{palindrome over } \{ a,b \} \]
+This implies that 
+\[ sort(L_1) = \{a^mb^n | \text{either m or n is odd, not both}, |m|, |n|, \geq
+0\} \]
+as an example, the palindrome $abababa$ when sorted becomes $aaaabbb$. 
+
+\subsection{Nonregular to regular}
+Let \[ L_2 = (abaa^*)^* \].
+Sorting $L_2$ gives us \[ a^mb^n | m > n \geq 0 \].
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -147,6 +125,12 @@ defined as follows:}
 \end{itemize}
 \end{quote}
 \subsubsection*{Answer:}
+\begin{itemize}
+  \item level: warmup; \( foo \) : 207 pts
+  \item level: anchors; \( k\$ \) : 208 pts
+  \item level: ranges; \begin{verbatim}/^[a-f].*[a-f][abd-f]$/ \end{verbatim}: 179 pts
+  \item level: long count; \begin{verbatim}/ 0.*1 0010 0011 0100 0101 0110 01+ 10+ 1001 1010 1011 1100 1101 1+0 1+$ / \end{verbatim} : 200 pts
+\end{itemize}
 \vspace{5cm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -180,19 +164,16 @@ defined as follows:}
     Prove whether it is a regular language or not. THere are 3 variables:
   \(S, A, B\) and two terminals \(\{0,1\}\) }
 \end{quote}
-\subsection{\(S \to AA,B\)}
-\subsubsection*{Answer:}
-\vspace{5cm}
+\begin{align*}
+  S \to& AA,B \\
+  A \to& 0A, A0, 1 \\
+  B \to& 0B00,1
+\end{align*}
+\subsubsection{Answer}
+
+\[ L = {{0*}1{0*}1{0*} | 0^n 1 0^2n | w \epsilon {0,1}* } \]
 
 
-\subsection{\(A \to 0A, A0, 1\)}
-\subsubsection*{Answer:}
-\vspace{5cm}
-
-
-\subsection{\(B \to 0B00,1\)}
-\subsubsection*{Answer:}
-\vspace{5cm}
 
 \section{Exercise 36, Automata notes}
 \begin{quote}
