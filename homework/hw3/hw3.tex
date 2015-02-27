@@ -60,10 +60,13 @@
 
 \begin{document}
 
-\title{More Fun With Automata \\ Homework 3, CS500, Fall 2014}
+\title{Even More Fun With Automata \\ Homework 3, CS500, Fall 2014}
 \author{Aaron Gonzales (group 16)}
 \maketitle
 
+Note to teammates: I'm sorry about the low quality of this assignment. I will
+make myself available as much as possible to correct and compile our solution
+set and will continue to work on these before we meet.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Ex 23, Automata Notes}
@@ -100,11 +103,23 @@ Sorting $L_2$ gives us \[ a^mb^n | m > n \geq 0 \].
     \(n\), \(A_n \) is non-regular. Prove your solution is correct.}
 \end{quote}
 \subsubsection*{Answer:}
-\vspace{5cm}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+This was a difficult problem. 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Taking our example from problem 1, define two languages:
+Let below be the language when $n$ is odd
+\begin{align*}
+L_n =\{ \text{palindrome over } \{ a^i,b^{i-1} \} \} \\
+\end{align*}
+and below bet the language when $n$ is even. 
+\begin{align*}
+sort(L_n) = \{a^mb^p | \text{either m or p is odd, not both}, |m|, |p|, \geq 0\} 
+\end{align*}
+Sorting the palindromic language gives us regularity and the next step takes us out of it.
+
+
+
+
 \section{Regex Golf}
 \begin{quote}
   \textbf{Go to \href{https://regex.alf.nu/} and solve at least 5 of the
@@ -130,8 +145,8 @@ defined as follows:}
   \item level: anchors; \( k\$ \) : 208 pts
   \item level: ranges; \begin{verbatim}/^[a-f].*[a-f][abd-f]$/ \end{verbatim}: 179 pts
   \item level: long count; \begin{verbatim}/ 0.*1 0010 0011 0100 0101 0110 01+ 10+ 1001 1010 1011 1100 1101 1+0 1+$ / \end{verbatim} : 200 pts
+  \item level: glob; \begin{verbatim}/^((er|f|i|p|t|v)|b|c[^a]).*[b-jm-z]$/\end{verbatim}: 124 pts but i failed matching many cases.
 \end{itemize}
-\vspace{5cm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -143,18 +158,33 @@ defined as follows:}
 \end{quote}
 \subsection{\(\{w : w \ \mbox{contains at least two 1's}\}\)}
 \subsubsection*{Answer:}
-\vspace{5cm}
-
-
+\begin{align*}
+S \to 1A, 0A \\
+A \to 1A, 0A, B \\
+B \to 1, A, C
+\end{align*}
 \subsection{\(\{w : w \ \mbox{starts and ends with the same symbol, and has odd length}\}\)}
 \subsubsection*{Answer:}
-\vspace{5cm}
 
-
+\begin{align*}
+  G = {V, \Sigma, \Gamma, S} & \\
+  V = & \{S, A\} \\
+  \Sigma = & \{0,1\} \\
+  S = & S \\
+  S \to & A | 1 | 0 \\
+  A \to & 0B0 | 1B1 \\
+  B \to & 0B0 | 1B1 | 1B0 | 0B1 | 0 | 1
+\end{align*} 
+The first rule accounts for the singleton case, e.g. a string of 1
+or 0. $A$ ensures that the word starts and ends with either 1 or 0. $B$ allows
+only odd filler values. 
 
 \subsection{\(\{wx : x \ \mbox{is a substring of the reverse of} \ w\}\)}
 \subsubsection*{Answer:}
-\vspace{5cm}
+Unanswered.
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -171,9 +201,10 @@ defined as follows:}
 \end{align*}
 \subsubsection{Answer}
 
-\[ L = {{0*}1{0*}1{0*} | 0^n 1 0^2n | w \epsilon {0,1}* } \]
+\[ L = \left( \left( 0^* \right)1\left( 0^* \right)1( 0^* \right) | 0^n 1 0^{2n} \]
 
-
+No proof. I'll leave it as an exercise for me to do after the assignment is
+due.
 
 \section{Exercise 36, Automata notes}
 \begin{quote}
@@ -181,8 +212,18 @@ defined as follows:}
   1-NCAs and NPDAs. Do you think this is true for two-counter automata as well?}
 \end{quote}
 \subsubsection{Answer:}
-\vspace{5cm}
 
+For DPDA $\to$ 1--DCA The stack symbol can be thought of as an increment or
+decrement operation, allowing us to keep a pseudo "count" of the number of
+things that happen.
 
+For NPDA $\to$ 1--NCA, the same method as above follows.
+
+For the two counter automata, they can recognize a language that a DPDA cannot,
+namely
+
+\[ L = a^p b^p c^p | p > 1\]
+
+The proof is left as an exercise for the reader... who is me.
 
 \end{document}
